@@ -37,10 +37,15 @@ pipeline {
                 sh 'docker images'
             }
         }
-        stage ('deploy-push'){
+        stage ('Push'){
             steps{
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
                 sh 'docker push $REGISTRY/$APP_NAME:latest'
+            }   
+        }
+        stage ('deploy'){
+            steps{
+                sh 'echo DEPLOY'
             }   
         }
     }
