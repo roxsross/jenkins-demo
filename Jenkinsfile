@@ -36,11 +36,11 @@ pipeline {
                 sh 'docker tag $APP_NAME:latest $REGISTRY/$APP_NAME:latest'
                 sh 'docker images'
             }
+        }
         stage ('deploy-push'){
             steps{
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
             }   
         }
-    }
     }
 }
