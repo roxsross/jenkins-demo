@@ -1,11 +1,9 @@
 pipeline {
     agent any
     environment{
-        NOMBRE='rossana'
-        APELLIDO= 'suarez'
         APP_NAME= 'app-demo'
         REGISTRY ='roxsross12'
-        DOCKER_HUB_LOGIN = 'docker-hub'
+        DOCKER_HUB_LOGIN = credentials('docker-hub')
     }
     stages{
         stage ('checkout github'){
