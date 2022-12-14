@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     environment{
         APP_NAME= 'app-demo'
         REGISTRY ='roxsross12'
