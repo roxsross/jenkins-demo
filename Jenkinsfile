@@ -12,11 +12,25 @@ pipeline {
             }
         }  
         stage ('install dependencia'){
+             agent {
+                docker {
+                    label 'docker'
+                    image 'node:erbium-alpine'
+                    args '-u root:root'
+                }           
+            }
             steps{
                 sh 'npm install'
             }
         }
         stage ('test'){
+              agent {
+                docker {
+                    label 'docker'
+                    image 'node:erbium-alpine'
+                    args '-u root:root'
+                }           
+            }
             steps{
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 sh 'npm run test'
