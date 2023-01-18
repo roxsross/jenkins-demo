@@ -32,6 +32,7 @@ pipeline {
         }
         stage ('build'){
             steps{
+                sh 'source ./version.sh'
                 sh 'docker build -t $APP_NAME:${VERSION} .'
                 sh 'docker images'
             }
@@ -44,18 +45,21 @@ pipeline {
         }*/
         stage ('tag version'){
             steps{
+                sh 'source ./version.sh'
                 sh 'docker tag $APP_NAME:${VERSION} $REGISTRY/$APP_NAME:${VERSION}'
                 sh 'docker images'
             }
         }
         stage ('Push'){
             steps{
+                sh 'source ./version.sh'
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
                 sh 'docker push $IMAGE_NAME:${VERSION}'
             }   
         }
         stage ('deploy'){
             steps{
+                sh 'source ./version.sh'
                 sh 'echo DEPLOY'
                 sh ("sed -i -- 's/REGISTRY/$REGISTRY/g' docker-compose.yaml")
                 sh ("sed -i -- 's/APP_NAME/$APP_NAME/g' docker-compose.yaml")
