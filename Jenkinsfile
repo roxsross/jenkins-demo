@@ -24,6 +24,11 @@ pipeline {
                 sh 'npm install'
             }
         }
+         stage ('version'){
+            steps{
+                sh 'sh version.sh'
+            }
+        }
         stage ('build'){
             steps{
                 sh 'docker build -t $APP_NAME:${BUILD_NUMBER} .'
