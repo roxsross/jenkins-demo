@@ -26,7 +26,8 @@ pipeline {
         }
          stage ('version'){
             steps{
-                sh 'sh version.sh'
+                sh 'source ./version.sh'
+                sh 'echo $VERSION'
             }
         }
         stage ('build'){
