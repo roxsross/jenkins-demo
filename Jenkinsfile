@@ -26,7 +26,7 @@ pipeline {
         }
         stage ('build'){
             steps{
-                sh 'docker build -t $APP_NAME .'
+                sh 'docker build -t $APP_NAME:${BUILD_NUMBER} .'
                 sh 'docker images'
             }
         }
