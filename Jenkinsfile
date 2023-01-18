@@ -46,7 +46,7 @@ pipeline {
             steps{
                 sh 'echo DEPLOY'
                 sh 'chmod +x server.sh'
-                sh './server.sh $IMAGE_NAME $DOCKER_HUB_LOGIN_USR $DOCKER_HUB_LOGIN_PSW
+                sh './server.sh $IMAGE_NAME'
                 sshagent(['ssh-ec2']) {
                  sh "scp -o StrictHostKeyChecking=no server.sh ${EC2_INSTANCES}:/home/ec2-user"
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
