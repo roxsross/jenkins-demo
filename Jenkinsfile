@@ -30,6 +30,15 @@ pipeline {
                 sh 'docker images'
             }
         }
+        stage('Read JSON') {
+            steps {
+                script {
+                    def packageJson = readJSON file: 'package.json'
+                    def packageVersion = packageJSON.version
+                    echo "${packageJSONVersion}"
+                 }
+             }
+        }
         stage ('tag version'){
             steps{
                 sh 'docker tag $APP_NAME:latest $REGISTRY/$APP_NAME:latest'
