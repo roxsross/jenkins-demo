@@ -32,11 +32,7 @@ pipeline {
         }
         stage('Read JSON') {
             steps {
-                script {
-                    def packageJson = readJSON file: 'package.json'
-                    def packageVersion = packageJSON.version
-                    echo "${packageJSONVersion}"
-                 }
+                sh 'awk -F'"' '/"version": ".+"/{ print $4; exit; }' package.json'
              }
         }
         stage ('tag version'){
