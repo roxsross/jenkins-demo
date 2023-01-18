@@ -45,9 +45,8 @@ pipeline {
         stage ('deploy'){
             steps{
                 sh 'echo DEPLOY'
-                sh 'sed -i "s/REPLACE-IMAGE/$IMAGE_NAME/g" docker-compose.yaml'
+                sh ("sed -i "s/REPLACE-IMAGE/$IMAGE_NAME/g" docker-compose.yaml")
                 sshagent(['ssh-ec2']) {
-                 sh "scp -o StrictHostKeyChecking=no server.sh ${EC2_INSTANCES}:/home/ec2-user"
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
                  sh "ssh -o StrictHostKeyChecking=no ${EC2_INSTANCES} docker-compose up -d"
                     
