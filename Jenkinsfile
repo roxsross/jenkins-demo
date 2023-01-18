@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Read JSON') {
             steps {
-                sh 'jq -r '.version' ./package.json'
+                sh 'jq -r '.version' package.json'
              }
         }
         stage ('tag version'){
