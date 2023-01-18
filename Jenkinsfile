@@ -33,7 +33,7 @@ pipeline {
         stage ('build'){
             steps{
                 sh 'source ./version.sh'
-                sh 'docker build -t $APP_NAME:${VERSION} .'
+                sh 'docker build -t $APP_NAME:$VERSION .'
                 sh 'docker images'
             }
         }
