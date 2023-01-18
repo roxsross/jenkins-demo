@@ -49,8 +49,8 @@ pipeline {
                 sh ("sed -i -- 's/APP_NAME/$APP_NAME/g' docker-compose.yaml")
                 sshagent(['ssh-ec2']) {
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
-                 sh "ssh ec2-user@52.55.21.214 ls -lrt"
-                 sh "ssh ec2-user@52.55.21.214 docker-compose up -d"
+                 sh "ssh ${EC2_INSTANCES} ls -lrt"
+                 sh "ssh ${EC2_INSTANCES} docker-compose up -d"
                     
                 }
             }   
