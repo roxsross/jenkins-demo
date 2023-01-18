@@ -30,25 +30,16 @@ pipeline {
                 sh 'docker images'
             }
         }
-        stage('Read JSON') {
-            steps {
-                script {
-                    def packageJson = readJSON file: 'package.json'
-                    def packageVersion = packageJSON.version
-                    echo "${packageJSONVersion}"
-                 }
-             }
-        }
         stage ('tag version'){
             steps{
-                sh 'docker tag $APP_NAME:latest $REGISTRY/$APP_NAME:latest'
+                sh 'docker tag $APP_NAME:${BUILD_NUMBER} $REGISTRY/$APP_NAME:${BUILD_NUMBER}'
                 sh 'docker images'
             }
         }
         stage ('Push'){
             steps{
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                sh 'docker push $IMAGE_NAME'
+                sh 'docker push $IMAGE_NAME:${BUILD_NUMBER}'
             }   
         }
         stage ('deploy'){
@@ -56,6 +47,7 @@ pipeline {
                 sh 'echo DEPLOY'
                 sh ("sed -i -- 's/REGISTRY/$REGISTRY/g' docker-compose.yaml")
                 sh ("sed -i -- 's/APP_NAME/$APP_NAME/g' docker-compose.yaml")
+                sh ("sed -i -- 's/TAG/$BUILD_NUMBER/g' docker-compose.yaml")
                 sshagent(['ssh-ec2']) {
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
                  sh "ssh ${EC2_INSTANCES} ls -lrt"
