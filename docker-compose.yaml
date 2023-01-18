@@ -2,7 +2,7 @@ version: '3'
 services:
     node-app:
       container_name: node-app
-      image: REGISTRY/IMAGE
+      image: REGISTRY/APP_NAME
       ports:
         - 3000:3000
        restart: always
