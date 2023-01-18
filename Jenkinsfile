@@ -49,7 +49,7 @@ pipeline {
                 sh ("sed -i -- 's/APP_NAME/$APP_NAME/g' docker-compose.yaml")
                 sshagent(['ssh-ec2']) {
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
-                 sh "ssh -o StrictHostKeyChecking=no ${EC2_INSTANCES} docker-compose up -d"
+                 sh "ssh -o StrictHostKeyChecking=no ${EC2_INSTANCES} docker-compose -f /home/ec2-user/docker-compose.yaml up --detach"
                     
                 }
             }   
