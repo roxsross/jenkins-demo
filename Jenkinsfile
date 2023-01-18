@@ -32,20 +32,26 @@ pipeline {
         }
         stage ('build'){
             steps{
-                sh 'docker build -t $APP_NAME:${BUILD_NUMBER} .'
+                sh 'docker build -t $APP_NAME:${VERSION} .'
                 sh 'docker images'
             }
         }
+/*        stage ('build'){
+            steps{
+                sh 'docker build -t $APP_NAME:${BUILD_NUMBER} .'
+                sh 'docker images'
+            }
+        }*/
         stage ('tag version'){
             steps{
-                sh 'docker tag $APP_NAME:${BUILD_NUMBER} $REGISTRY/$APP_NAME:${BUILD_NUMBER}'
+                sh 'docker tag $APP_NAME:${VERSION} $REGISTRY/$APP_NAME:${VERSION}'
                 sh 'docker images'
             }
         }
         stage ('Push'){
             steps{
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                sh 'docker push $IMAGE_NAME:${BUILD_NUMBER}'
+                sh 'docker push $IMAGE_NAME:${VERSION}'
             }   
         }
         stage ('deploy'){
@@ -53,7 +59,7 @@ pipeline {
                 sh 'echo DEPLOY'
                 sh ("sed -i -- 's/REGISTRY/$REGISTRY/g' docker-compose.yaml")
                 sh ("sed -i -- 's/APP_NAME/$APP_NAME/g' docker-compose.yaml")
-                sh ("sed -i -- 's/TAG/$BUILD_NUMBER/g' docker-compose.yaml")
+                sh ("sed -i -- 's/TAG/$VERSION/g' docker-compose.yaml")
                 sshagent(['ssh-ec2']) {
                  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${EC2_INSTANCES}:/home/ec2-user"
                  sh "ssh ${EC2_INSTANCES} ls -lrt"
