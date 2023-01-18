@@ -2,7 +2,6 @@
 
 if [[ ( ! -z "$VERSION" ) || ( -f "./package.json" ) ]]
       then
-      VERSION=`jq -r '.version' package.json`
+      export VERSION=`jq -r '.version' package.json`
 fi
 
-echo $VERSION
