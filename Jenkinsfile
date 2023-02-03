@@ -10,7 +10,7 @@ pipeline {
             steps{
                 sh 'source ./version.sh'
                 sh 'echo $VERSION'
-                echo 'Branch $BRANCH_NAME'
+                echo "Branch ${env.BRANCH_NAME}"
             }
         }
         stage ('tag version'){
