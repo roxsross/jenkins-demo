@@ -2,10 +2,7 @@ pipeline {
     agent any
     environment{
         DOCKER_HUB_LOGIN = credentials('docker-hub-roxs')
-        BRANCH_NAME = sh(
-                script: "printf \$(git rev-parse --abbrev-ref HEAD)",
-                returnStdout: true
-            )
+        BRANCH_NAME = `git rev-parse --abbrev-ref HEAD`
     }
     stages{
          stage ('version'){
