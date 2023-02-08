@@ -1,7 +1,7 @@
 {
-  "name": "training-ecs-aws-girl",
+  "name": "devops-ninja",
   "version": "1.0.0",
-  "description": "AWS ECS&ECR Level 100",
+  "description": "Jenkins demo",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,14 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roxsross/training-ecs-aws-girl.git"
+    "url": ""
   },
   "author": "Rossana Suarez",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/roxsross/training-ecs-aws-girl/issues"
-  },
-  "homepage": "https://github.com/roxsross/training-ecs-aws-girl#readme",
   "dependencies": {
     "express": "^4.17.3",
     "morgan": "^1.10.0"
