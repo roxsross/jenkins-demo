@@ -32,8 +32,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                export VERSION=$( jq --raw-output .version package.json )
-                docker build -t $REGISTRY/$APPNAME:$VERSION .
+                VERSION=$( jq --raw-output .version package.json ) > version.txt
+                docker build -t $REGISTRY/$APPNAME:$(cat version.txt) .
                 '''
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 sh '''
                 docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW
-                docker push $REGISTRY/$APPNAME:$VERSION
+                docker push $REGISTRY/$APPNAME:$(cat version.txt)
                 '''
             }
         }
