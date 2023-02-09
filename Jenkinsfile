@@ -7,6 +7,14 @@ pipeline {
         APPNAME = "jenkins-demo"
     }
     stages{
+        stage('Check Version') {
+            steps {
+                sh '''
+                VERSION=$( jq --raw-output .version package.json ) 
+                echo $VERSION > version.txt
+                '''
+            }
+        }
         stage('Install Dependencias') {
             agent{
                 docker {
@@ -27,14 +35,6 @@ pipeline {
             }
             steps {
                 sh 'npm run test'
-            }
-        }
-        stage('Version') {
-            steps {
-                sh '''
-                VERSION=$( jq --raw-output .version package.json ) 
-                echo $VERSION > version.txt
-                '''
             }
         }
         stage('Docker Build') {
