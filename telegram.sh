@@ -7,7 +7,7 @@ COMMIT=$(git log -1 --pretty=format:"%s")
 BUILD_STATUS="SUCCESS"
 REPOSITORY="jenkins-demo"
 BRANCH_NAME="master"
-VERSION="1.0.0"
+VERSION=$( jq --raw-output .version package.json )
 
 # Send message function
 send_msg () {
