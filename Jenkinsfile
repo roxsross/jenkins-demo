@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         DOCKER_HUB_LOGIN = credentials('docker-hub')
-        URL = credentials('telegram')
+        TELEGRAM = credentials('telegram')
         REGISTRY = "roxsross12"
         APPNAME = "jenkins-demo"
     }
