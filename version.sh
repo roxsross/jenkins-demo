@@ -1,7 +1,10 @@
 #!/bin/bash
 
-if [[ ( ! -z "$VERSION" ) || ( -f "./package.json" ) ]]
+if [ -z "$VERSION" ]
       then
-      VERSION=`jq -r '.version' package.json`
+      VERSION=`jq -r '.version' ./package.json`
+      
 fi
+
+set +x
 
