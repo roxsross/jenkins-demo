@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment{
         DOCKER_HUB_LOGIN = credentials('docker-hub')
+        URL = credentials('telegram')
         REGISTRY = "roxsross12"
         APPNAME = "jenkins-demo"
     }
@@ -47,9 +48,8 @@ pipeline {
         }
        stage('Notificacion') {
             steps {
-                //sh 'chmod +x ./telegram.sh'
-                //sh './telegram.sh'
-                echo "not"
+                sh 'chmod +x ./telegram.sh'
+                sh './telegram.sh'
             }
         }
      } //end stages
