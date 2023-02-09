@@ -6,7 +6,7 @@ pipeline {
     stages{
          stage ('version'){
             steps{
-                sh 'source ./version.sh'
+                sh 'source version.sh'
                 sh 'echo $VERSION'
             }
         }
