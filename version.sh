@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 if [[ ( ! -z "$VERSION" ) || ( -f "./package.json" ) ]]
