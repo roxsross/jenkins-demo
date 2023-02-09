@@ -29,6 +29,15 @@ pipeline {
                 sh 'npm run test'
             }
         }
+        stage('Version') {
+            steps {
+                sh '''
+                VERSION=$( jq --raw-output .version package.json ) 
+                echo $VERSION > version.txt
+                cat version.txt
+                '''
+            }
+        }
         stage('Docker Build') {
             steps {
                 sh '''
