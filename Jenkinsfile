@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment{
         DOCKER_HUB_LOGIN = credentials('docker-hub')
+        REGISTRY = "roxsross12"
+        APPNAME = "jenkins-demo"
     }
     stages{
         stage('Install Dependencias') {
@@ -30,7 +32,6 @@ pipeline {
             steps {
                 sh '''
                 VERSION=$( jq --raw-output .version package.json )
-                echo "$VERSION"
                 docker build -t $REGISTRY/$APPNAME:$VERSION .
                 '''
             }
@@ -39,7 +40,6 @@ pipeline {
             steps {
                 sh '''
                 VERSION=$( jq --raw-output .version package.json )
-                echo "$VERSION"
                 docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW
                 docker push $REGISTRY/$APPNAME:$VERSION
                 '''
