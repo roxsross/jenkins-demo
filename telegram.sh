@@ -1,5 +1,5 @@
 #!/bin/bash
-BOT_URL=$URL
+BOT_URL=$TELEGRAM
 TELEGRAM_CHAT_ID="-1001508340482"
 # Set formatting
 PARSE_MODE="Markdown"
