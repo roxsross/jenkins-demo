@@ -7,8 +7,10 @@ pipeline {
          stage ('version'){
             steps{
                 sh 'chmod +x version.sh'
-                sh './version.sh'
-                sh 'echo $VERSION'
+                sh 'sh version.sh'
+                sh 'ls'
+                sh 'jq --help'
+                
             }
         }
         stage ('tag version'){
