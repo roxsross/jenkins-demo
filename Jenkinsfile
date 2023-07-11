@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+  agent {
+    node {
+      label 'go'
+    }
+  }
 
     stages {
         stage('Build') {
@@ -7,11 +11,15 @@ pipeline {
                sh 'ls -lrt'
             }
         }
-        stage('docker') {
-            steps {
-               sh 'docker info'
-            }
+    stage('build & push snapshot') {
+      steps {
+        container('go') {
+          sh 'docker info'
+          }
         }
+
+      }
+    }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
