@@ -19,10 +19,9 @@ pipeline {
         }
 
       }
-    }
-        stage('Deploy') {
+        stage('kubectl') {
             steps {
-                echo 'Deploying....'
+               sh 'kubectl version'
             }
         }
     }
