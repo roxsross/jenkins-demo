@@ -19,10 +19,7 @@ pipeline {
         }
 
       }
-        stage('kubectl') {
-            steps {
-               sh 'kubectl version'
-            }
-        }
-    }
+    
+    }//end stage
+  
 }
