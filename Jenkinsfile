@@ -5,17 +5,9 @@ pipeline {
         //TELEGRAM = credentials('telegram')
         REGISTRY = "roxsross12"
         APPNAME = "jenkins-demo"
+        VERSION = "1.0.0"
     }
     stages{
-        stage('Check Version') {
-            steps {
-                sh '''
-                apt-get update && apt install -y jq
-                VERSION=$( jq --raw-output .version package.json ) 
-                echo $VERSION > version.txt
-                '''
-            }
-        }
         stage('Install Dependencias') {
             agent{
                 docker {
@@ -41,7 +33,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                docker build -t $REGISTRY/$APPNAME:$(cat version.txt) .
+                docker build -t $REGISTRY/$APPNAME:$VERSION .
                 '''
             }
         }
@@ -49,7 +41,7 @@ pipeline {
             steps {
                 sh '''
                 docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW
-                docker push $REGISTRY/$APPNAME:$(cat version.txt)
+                docker push $REGISTRY/$APPNAME:$VERSION 
                 '''
             }
         }
