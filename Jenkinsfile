@@ -7,9 +7,9 @@ pipeline {
                sh 'ls -lrt'
             }
         }
-        stage('Test') {
+        stage('docker') {
             steps {
-                echo 'Testing..'
+               sh 'docker info'
             }
         }
         stage('Deploy') {
