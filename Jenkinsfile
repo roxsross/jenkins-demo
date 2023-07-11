@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               sh 'kubectl apply -f pod.yaml'
+               sh 'ls -lrt'
             }
         }
         stage('Test') {
