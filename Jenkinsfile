@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment{
-        DOCKER_HUB_LOGIN = credentials('docker-hub-roxs')
-        TELEGRAM = credentials('telegram')
+        DOCKER_HUB_LOGIN = credentials('docker-hub')
+        //TELEGRAM = credentials('telegram')
         REGISTRY = "roxsross12"
         APPNAME = "jenkins-demo"
     }
@@ -50,12 +50,6 @@ pipeline {
                 docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW
                 docker push $REGISTRY/$APPNAME:$(cat version.txt)
                 '''
-            }
-        }
-       stage('Notificacion') {
-            steps {
-                sh 'chmod +x ./telegram.sh'
-                sh './telegram.sh'
             }
         }
      } //end stages
