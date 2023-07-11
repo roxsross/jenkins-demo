@@ -4,7 +4,9 @@ pipeline {
       label 'go'
     }
   }
-
+  parameters{
+     string(name:'TAG_NAME',defaultValue: '',description:'')
+  }
     stages {
         stage('Build') {
             steps {
