@@ -8,41 +8,9 @@ pipeline {
         VERSION = "1.0.0"
     }
     stages{
-        stage('Install Dependencias') {
-            agent{
-                docker {
-                    image 'node:erbium-alpine'
-                    args '-u root:root'
-                }
-            }
+        stage('deploy) {
             steps {
-                sh 'npm install'
-            }
-        }
-        stage('Unit-test') {
-            agent{
-                docker {
-                    image 'node:erbium-alpine'
-                    args '-u root:root'
-                }
-            }
-            steps {
-                sh 'npm run test'
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                sh '''
-                docker build -t $REGISTRY/$APPNAME:$VERSION .
-                '''
-            }
-        }
-        stage('Docker Push to Docker-hub') {
-            steps {
-                sh '''
-                docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW
-                docker push $REGISTRY/$APPNAME:$VERSION 
-                '''
+                sh 'kubectl apply -f pod.yaml'
             }
         }
      } //end stages
