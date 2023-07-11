@@ -10,6 +10,7 @@ pipeline {
         stage('Check Version') {
             steps {
                 sh '''
+                apt-get update && apt install -y jq
                 VERSION=$( jq --raw-output .version package.json ) 
                 echo $VERSION > version.txt
                 '''
